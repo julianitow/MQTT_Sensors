@@ -3,8 +3,8 @@
 #include <ESP8266WiFi.h> 
 #include <PubSubClient.h>
 
-#define SSID "uifeedu75"
-#define PASSWORD "mandalorianBGdu75"
+#define SSID "ESGI"
+#define PASSWORD "Reseau-GES"
 
 #define MQTT_SERVER "group1.local"
 #define MQTT_USER "esgi"
@@ -235,6 +235,13 @@ void loop ()
 
   //TEMP SENSOR
   long temp = getTemp();
+  //Automatisation relay si température inférieure à 20 on allume le relay pour par exemple un chauffage
+  if(temp < 20) {
+    setRelay(1);
+  } else {
+    setRelay(0);
+  }
+  publishRelay();
   if(DEBUG && publishTemp(temp) > 0){
     Serial.println();
     Serial.print("Published: ");

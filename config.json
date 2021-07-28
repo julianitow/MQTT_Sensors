@@ -1,0 +1,64 @@
+{
+    "bridge": {
+        "name": "Homebridge EF21",
+        "username": "0E:A7:C5:77:EF:21",
+        "port": 52178,
+        "pin": "031-45-151"
+    },
+    "accessories": [
+        {
+            "type": "temperatureSensor",
+            "name": "Temperature",
+            "url": "mqtt://127.0.0.1:1883",
+            "username": "esgi",
+            "password": "esgi",
+            "topics": {
+                "getCurrentTemperature": "esgi/group1/temp"
+            },
+            "history": true,
+            "minTemperature": 0,
+            "maxTemperature": 50,
+            "accessory": "mqttthing"
+        },
+        {
+            "accessory": "mqttthing",
+            "type": "switch",
+            "name": "Relay",
+            "url": "mqtt://127.0.0.1:1883",
+            "username": "esgi",
+            "password": "esgi",
+            "topics": {
+                "getOn": "esgi/group1/relay",
+                "setOn": "esgi/group1/setRelay"
+            },
+            "integerValue": true,
+            "history": true
+        },
+        {
+            "accessory": "mqttthing",
+            "type": "lightbulb",
+            "name": "RGB Led",
+            "url": "mqtt://127.0.0.1:1883",
+            "username": "esgi",
+            "password": "esgi",
+            "topics": {
+                "getOn": "esgi/group1/rgb",
+                "setOn": "esgi/group1/setOn",
+                "getRGB": "esgi/group1/rgb",
+                "setRGB": "esgi/group1/setRGB"
+            },
+            "integerValue": true,
+            "hex": false,
+            "hexPrefix": false,
+            "minColorTemperature": 140,
+            "maxColorTemperature": 500
+        }
+    ],
+    "platforms": [
+        {
+            "name": "Config",
+            "port": 8181,
+            "platform": "config"
+        }
+    ]
+}
